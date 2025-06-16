@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title><?= $args['titre'] ?? 'Titre par défaut' ?></title>
     <meta name="description" content="<?= $args['description'] ?? '' ?>">
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/css/reset.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/css/style.css">
 </head>
 <body>
     <header>
@@ -19,8 +19,8 @@ require_once 'navigation.php';
 genererMenu([
     'Accueil' => '/',
     'Contact' => '/contact',
-    'Connexion' => 'connexion.php',
-    'Profil' => 'profil.php'
+    'Connexion' => '/connexion',
+    'Profil' => '/profil'
 ]);
 ?>
         </nav>

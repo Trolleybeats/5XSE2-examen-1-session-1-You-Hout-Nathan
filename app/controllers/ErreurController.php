@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__DIR__, 2) . '/core/GestionVue.php';
+require_once dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'gestionVue.php';
 
 function obtenirInfosPage(): array
 {
@@ -15,8 +15,5 @@ function afficherErreur404()
     $args = obtenirInfosPage();
     afficherVue('erreur404.php', $args);
 }
-
-?>
-
 
 ?>

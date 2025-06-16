@@ -1,20 +1,23 @@
 <?php
 
-require_once dirname(__DIR__) . '/core/GestionSession.php';
-connecterUtilisateur();
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'gestionSession.php';
+initialiserSession();
 
 // Récupérer le chemin demandé dans l'URL (sans paramètres).
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
+
 $methode = $_SERVER['REQUEST_METHOD'];
 
-$base = '/forum/public';
+$base = '/public';
 if (str_starts_with($url, $base)) {
     $url = substr($url, strlen($base));
     if ($url === '') {
         $url = '/';
     }
 }
+
+
 
 // Stocker le chemin vers le dossier des contrôleurs.
 $cheminControleurs = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'controllers' . DIRECTORY_SEPARATOR;
@@ -33,6 +36,31 @@ else if ($url === '/contact' && $methode === 'GET')
 elseif ($url === '/contact' && $methode === 'POST') {
     require_once $cheminControleurs . 'ContactController.php';
     traiterContactForm($_POST);
+}
+else if ($url === '/connexion' && $methode === 'GET')
+{
+    require_once $cheminControleurs . 'ConnexionController.php';
+    afficherConnexion();
+}
+else if ($url === '/connexion' && $methode === 'POST') {
+    require_once $cheminControleurs . 'ConnexionController.php';
+    traiterConnexion();
+}
+elseif ($url === '/inscription' && $methode === 'GET') {
+    require_once $cheminControleurs . 'InscriptionController.php';
+    afficherInscription();
+}
+elseif ($url === '/inscription' && $methode === 'POST') {
+    require_once $cheminControleurs . 'InscriptionController.php';
+    traiterFormulaireInscription($_POST);
+}
+else if ($url === '/profil' && $methode === 'GET') {
+    require_once $cheminControleurs . 'ProfilController.php';
+    afficherProfil();
+}
+else if ($url === '/deconnexion' && $methode === 'GET') {
+    require_once $cheminControleurs . 'ConnexionController.php';
+    afficherDeconnexion();
 }
 else
 {

@@ -1,24 +1,27 @@
 <?php
 
-function connecterUtilisateur(){
-
-if (session_status() === PHP_SESSION_NONE)
-{
-    ini_set('session.use_strict_mode', 1);
-    ini_set('session.use_only_cookies', 1);
-
-    if (!isset($_COOKIE[session_name()]))
+function initialiserSession(){
+    if (session_status() === PHP_SESSION_NONE)
     {
-        session_set_cookie_params([
-            'secure' => true,
-            'httponly' => true,
-            'samesite' => 'lax'
-        ]);
-    }
+        ini_set('session.use_strict_mode', 1);
+        ini_set('session.use_only_cookies', 1);
 
-    session_start();
+        // En local sans HTTPS, 'secure' => false
+        $secure = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on';
+
+        if (!isset($_COOKIE[session_name()]))
+        {
+            session_set_cookie_params([
+                'secure' => $secure,
+                'httponly' => true,
+                'samesite' => 'lax'
+            ]);
+        }
+
+        session_start();
+    }
 }
-}
+
 
 function estConnecte() {
     if (session_status() === PHP_SESSION_NONE) {

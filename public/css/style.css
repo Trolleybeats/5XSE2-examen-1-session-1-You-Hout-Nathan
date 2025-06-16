@@ -1,0 +1,91 @@
+/*Semantique*/
+header{
+    padding:10px;
+    border-bottom: 1px solid black;
+}
+main{
+    padding-top: 2vh;
+}
+footer{
+    padding-left:20px;
+    padding-top: 20px;
+    margin-top:20px;
+    border-top: 1px solid black;
+}
+/*Navigation*/
+ul{
+    display: flex;
+}
+li{
+    padding: 10px;
+    margin: 5px;
+    background-color: #00ff00;
+    border-radius: 3px;
+}
+ul li:last-child {
+    margin-left: auto;
+    margin-right: 0;
+  }
+a{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+a:hover{
+    font-weight: bold;
+    color: #ff0000;
+}
+.active a {
+    font-weight: bold;
+    color: red;
+    text-decoration: none;
+}
+/*Formulaire*/
+form {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+     .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+    }
+label:has(+ :required)::before {
+    content: '* ';
+    color:red;
+}
+button {
+      background-color: #00ff00;
+      color: black;
+      padding: 0.75rem 2rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+/*Texte*/
+h1{
+    padding-left:20px;
+    padding-bottom: 20px;
+    font-weight: bold;
+    font-size: 24px;
+}
