@@ -1,10 +1,19 @@
 <?php
 
-function afficherAccueil(){
+require_once dirname(__DIR__, 2) . '/core/GestionVue.php';
 
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'accueil.php';
-
+function obtenirInfosPage(): array
+{
+    return [
+        'titre' => 'Accueil',
+        'description' => 'Bienvenue sur la page d\'accueil du site.'
+    ];
 }
 
+function afficherAccueil()
+{
+    $args = obtenirInfosPage();
+    afficherVue('accueil.php', $args);
+}
 
 ?>
