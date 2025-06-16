@@ -33,9 +33,6 @@ function afficherContact()
     afficherVue('contact.php', $args);
 }
 
-
-
-
 function traiterContactForm($post) {
 
     $erreurs = [];
@@ -81,17 +78,68 @@ function traiterContactForm($post) {
 ];
 
 
-     if (!empty($erreurs)) {
-        $_SESSION['erreurs'] = $erreurs;
-        $_SESSION['entreesUtilisateur'] = $entreesUtilisateur;
+   if (!empty($erreurs)) {
+    $_SESSION['erreurs'] = $erreurs;
+    $_SESSION['entreesUtilisateur'] = $entreesUtilisateur;
+} else {
+    // Envoi de l’email si validation réussie
+    $ok = envoyerCourrielFormContact($post);
+
+    // Enregistre un message de succès ou une erreur d'envoi
+    if ($ok) {
+        $_SESSION['erreurs'] = []; // succès = erreurs vides
     } else {
-        // ✅ Ici tu pourras envoyer l’email plus tard
-        // mail(...);
-        $_SESSION['erreurs'] = []; // utile pour détecter succès dans la vue
+        $_SESSION['erreurs'] = ['global' => "L'envoi du courriel a échoué. Veuillez réessayer plus tard."];
+        $_SESSION['entreesUtilisateur'] = $entreesUtilisateur;
     }
+}
+
 
     // Redirection PRG
     header("Location: " . $_SERVER['REQUEST_URI'], true, 303);
     exit();
 }
+
+function envoyerCourrielFormContact(array $donnees): bool
+{
+    $expediteur = "Page Contact <forum@framework.be>";
+    $destinataire = "nathan.yh@hotmail.com";
+    $sujet = "Projet Framework - Formulaire de contact";
+
+    $entetes = [
+        "From: " . $expediteur,
+        "Reply-To: " . $donnees['email'],
+        "MIME-Version: 1.0",
+        "Content-Type: text/html; charset=UTF-8",
+        "Content-Transfer-Encoding: quoted-printable"
+    ];
+
+    // Sécurisation des données utilisateur
+    $nom = htmlspecialchars(trim($donnees['nom'] ?? ''));
+    $prenom = htmlspecialchars(trim($donnees['prenom'] ?? ''));
+    $email = htmlspecialchars(trim($donnees['email'] ?? ''));
+    $messageTexte = nl2br(htmlspecialchars(trim($donnees['message'] ?? '')));
+
+    // Composition du message HTML
+    ob_start();
+    ?>
+    <html>
+        <body>
+            <h2>Message depuis le formulaire de contact</h2>
+            <ul>
+                <li><strong>Nom :</strong> <?= $nom ?></li>
+                <li><strong>Prénom :</strong> <?= $prenom ?></li>
+                <li><strong>Email :</strong> <?= $email ?></li>
+                <li><strong>Message :</strong><br><?= $messageTexte ?></li>
+            </ul>
+        </body>
+    </html>
+    <?php
+    $messageHTML = ob_get_clean();
+    $messageHTML = quoted_printable_encode($messageHTML);
+
+    // Envoi
+    return mail($destinataire, $sujet, $messageHTML, implode("\r\n", $entetes));
+}
+
 ?>

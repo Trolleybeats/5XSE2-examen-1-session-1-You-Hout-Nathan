@@ -1,16 +1,14 @@
 <h1>Contact</h1>
 
 <?php
-
-$message = $messageErreur = "";
-// Message général (succès / erreurs)
 if (isset($erreurs)) {
     if (empty($erreurs)) {
-    $message = "Formulaire soumis avec succès!";
-}
-else{
-    $messageErreur="Echec d'envoi du formulaire";
-}
+        echo "<p style='color: green;'>Votre message a été envoyé avec succès !</p>";
+    } elseif (!empty($erreurs['global'])) {
+        echo "<p style='color: red;'>{$erreurs['global']}</p>";
+    } else {
+        echo "<p style='color: red;'>Une ou plusieurs erreurs sont survenues. Veuillez corriger les champs indiqués.</p>";
+    }
 }
 
 // Raccourcis pour éviter répétition
