@@ -1,0 +1,11 @@
+# /public/.htaccess
+
+# Activer le moteur de réécriture d'URL d'Apache.
+RewriteEngine On
+
+# Laisser passer les fichiers et dossiers existants (ressources côté client)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Si ce n'est ni un fichier ni un dossier existant, rediriger vers index.php.
+RewriteRule ^ index.php [L]

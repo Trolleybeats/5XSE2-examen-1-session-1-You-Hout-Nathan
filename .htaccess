@@ -1,0 +1,8 @@
+# /.htaccess
+
+# Activer le moteur de réécriture d'URL d'Apache.
+RewriteEngine On
+
+# Rediriger toutes les requêtes vers le dossier /public/
+# Cela permet d'interdire l'accès direct aux fichiers en dehors du dossier public.
+RewriteRule ^ /public/ [L]
