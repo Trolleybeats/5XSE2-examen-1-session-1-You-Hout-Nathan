@@ -30,6 +30,10 @@ else if ($url === '/contact' && $methode === 'GET')
     require_once $cheminControleurs . 'ContactController.php';
     afficherContact();
 }
+elseif ($url === '/contact' && $methode === 'POST') {
+    require_once $cheminControleurs . 'ContactController.php';
+    traiterContactForm($_POST);
+}
 else
 {
     require_once $cheminControleurs . 'ErreurController.php';

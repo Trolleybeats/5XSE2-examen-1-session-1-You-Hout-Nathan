@@ -17,8 +17,8 @@ require_once 'navigation.php';
 
 
 genererMenu([
-    'Accueil' => 'index.php',
-    'Contact' => 'contact.php',
+    'Accueil' => '/',
+    'Contact' => '/contact',
     'Connexion' => 'connexion.php',
     'Profil' => 'profil.php'
 ]);
