@@ -1,6 +1,7 @@
 <?php
 
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php';
+require_once dirname(__DIR__) . '/core/GestionSession.php';
+connecterUtilisateur();
 
 // Récupérer le chemin demandé dans l'URL (sans paramètres).
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
