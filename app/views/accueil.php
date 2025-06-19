@@ -9,6 +9,8 @@ if (isset($erreurs)) {
 <h1><?= htmlspecialchars($args['titre']) ?></h1>
 
 <?php if (isset($_SESSION['utilisateurId'])): ?>
+
+    <!-- Formulaire de commentaire -->
     <form method="POST" action="/">
         <label for="contenu">Votre commentaire :</label><br>
         <textarea name="contenu" id="contenu" required minlength="10" maxlength="3000"><?= htmlspecialchars($args['entreesUtilisateur']['contenu'] ?? '') ?></textarea><br>

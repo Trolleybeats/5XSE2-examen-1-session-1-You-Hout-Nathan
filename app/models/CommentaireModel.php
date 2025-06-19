@@ -1,6 +1,9 @@
 <?php
-require_once dirname(__DIR__, 2) . '/core/gestionBdd.php';
-require_once dirname(__DIR__, 2) . '/core/gestionErreur.php';
+
+//Codé en grande partie avec l'aide de ChatGPT pour une implémentation correcte
+
+require_once dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'gestionErreur.php';
+require_once dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'gestionBdd.php';
 
 function recupererCommentaires(): array {
     $pdo = obtenirConnexionBdd();
