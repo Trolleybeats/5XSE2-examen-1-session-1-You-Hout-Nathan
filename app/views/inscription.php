@@ -1,6 +1,16 @@
+<?php
+if (isset($erreurs)) {
+    if (!empty($erreurs)) {
+        echo "<p style='color: red;'>Une ou plusieurs erreurs sont survenues. Veuillez corriger les champs indiqués.</p>";
+    }
+}
+?>
+
 <h1> Inscription </h1>
 
 <form method="post">
+    <input type="hidden" name="csrf_token" value="<?= genererTokenCSRF() ?>">
+
     <div class="form-group">
 <label for="inscription_pseudo">Votre pseudo :</label>
 <input name="inscription_pseudo" id="inscription_pseudo" type="text" value="<?= $valeurs['pseudo'] ?? '' ?>" minlength="2" maxlength="255" required>

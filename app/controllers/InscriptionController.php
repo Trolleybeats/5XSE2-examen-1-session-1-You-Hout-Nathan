@@ -1,6 +1,7 @@
 <?php
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR . 'utilisateurModel.php';
 require_once dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'gestionVue.php';
+require_once dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'gestionSession.php';
 
 function obtenirInfosPage(): array
 {
@@ -24,11 +25,20 @@ function afficherInscription()
     $args['valeurs'] = $_SESSION['valeurs'] ?? [];
     unset($_SESSION['valeurs']);
 
+     $args['csrf_token'] = genererTokenCSRF();
+
     afficherVue('inscription.php', $args);
 }
 
 function traiterFormulaireInscription(array $post)
 {
+
+    if (!isset($post['csrf_token']) || !verifierTokenCSRF($post['csrf_token'])) {
+    $_SESSION['erreurs'] = ['global' => "Jeton CSRF invalide ou expiré."];
+    header("Location: /inscription", true, 303);
+    exit();
+}
+
     $erreurs = [];
     $valeurs = [];
 
@@ -75,6 +85,9 @@ function traiterFormulaireInscription(array $post)
     if (!empty($erreurs)) {
         $_SESSION['erreurs'] = $erreurs;
         $_SESSION['valeurs'] = $valeurs;
+
+        header("Location: /inscription", true, 303);
+    exit();
     } else {
         // Tout est bon, insertion
         $hash = password_hash($motDePasse, PASSWORD_DEFAULT);

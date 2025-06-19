@@ -17,6 +17,8 @@ $erreurs = $erreurs ?? [];
 ?>
 
 <form method="post">
+    <input type="hidden" name="csrf_token" value="<?= genererTokenCSRF() ?>">
+
     <div class="form-group">
 
         <!-- Champ nom -->

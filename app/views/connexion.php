@@ -1,10 +1,16 @@
+<?php
+if (isset($erreurs)) {
+    if (!empty($erreurs)) {
+        echo "<p style='color: red;'>Une ou plusieurs erreurs sont survenues. Veuillez corriger les champs indiqués.</p>";
+    }
+}
+?>
+
 <h1>Connexion</h1>
 
-<?php if (!empty($erreur)) : ?>
-    <p style="color: red;"><?= htmlspecialchars($erreur) ?></p>
-<?php endif; ?>
-
 <form method="post" action="/connexion">
+    <input type="hidden" name="csrf_token" value="<?= genererTokenCSRF() ?>">
+
     <div class="form-group">
         <label for="connexion_pseudo">Votre pseudo :</label>
         <input name="connexion_pseudo" id="connexion_pseudo" type="text"

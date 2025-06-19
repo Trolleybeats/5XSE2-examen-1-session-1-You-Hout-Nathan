@@ -1,15 +1,15 @@
 <?php
 function genererMenu($links) {
-    echo '<nav><ul>';
+    echo '<ul>';
 
-    $currentPage = basename($_SERVER['REQUEST_URI']);
+    $currentPage = rtrim($_SERVER['REQUEST_URI'], '/');
 
-    foreach ($links as $link => $url) {
-    
-        $activeClass = ($currentPage == $url) ? 'class="active"' : '';
-        echo "<li $activeClass><a href='$url'>$link</a></li>";
+    foreach ($links as $label => $url) {
+        $urlNormalized = rtrim($url, '/');
+        $activeClass = ($currentPage === $urlNormalized) ? 'class="active"' : '';
+        echo "<li $activeClass><a href=\"$url\">$label</a></li>";
     }
-    
-    echo '</ul></nav>';
 
+    echo '</ul>';
 }
+?>

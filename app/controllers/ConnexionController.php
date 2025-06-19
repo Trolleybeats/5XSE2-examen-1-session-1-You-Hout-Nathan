@@ -2,6 +2,7 @@
 
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR . 'utilisateurModel.php';
 require_once dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'gestionVue.php';
+require_once dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'gestionSession.php';
 
 function obtenirInfosPage(): array
 {
@@ -26,11 +27,21 @@ function afficherConnexion()
         unset($_SESSION['ancienPseudo']);
     }
 
+     $args['csrf_token'] = genererTokenCSRF();
+
     afficherVue('connexion.php', $args);
 }
 
 function traiterConnexion()
 {
+
+    if (!isset($_POST['csrf_token']) || !verifierTokenCSRF($_POST['csrf_token'])) {
+    $_SESSION['connexion_erreur'] = "Jeton CSRF invalide ou expiré.";
+    $_SESSION['ancienPseudo'] = $_POST['connexion_pseudo'] ?? '';
+    header("Location: /connexion", true, 303);
+    exit();
+}
+
     $pseudo = trim($_POST['connexion_pseudo'] ?? '');
 $motDePasse = $_POST['connexion_motDePasse'] ?? '';
 

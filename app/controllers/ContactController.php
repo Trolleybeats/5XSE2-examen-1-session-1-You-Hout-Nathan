@@ -1,6 +1,8 @@
 <?php
 
 require_once dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'gestionVue.php';
+require_once dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'gestionSession.php';
+
 
 function obtenirInfosPage(): array
 {
@@ -30,10 +32,24 @@ function afficherContact()
         $args['entreesUtilisateur'] = [];
     }
 
+    $args['csrf_token'] = genererTokenCSRF();
+
     afficherVue('contact.php', $args);
 }
 
 function traiterContactForm($post) {
+
+    if (!isset($post['csrf_token']) || !verifierTokenCSRF($post['csrf_token'])) {
+    $_SESSION['erreurs'] = ['global' => "Jeton CSRF invalide ou expiré."];
+    $_SESSION['entreesUtilisateur'] = [
+        'nom' => $post['nom'] ?? '',
+        'prenom' => $post['prenom'] ?? '',
+        'email' => $post['email'] ?? '',
+        'message' => $post['message'] ?? '',
+    ];
+    header("Location: " . $_SERVER['REQUEST_URI'], true, 303);
+    exit();
+}
 
     $erreurs = [];
     $entreesUtilisateur = [];

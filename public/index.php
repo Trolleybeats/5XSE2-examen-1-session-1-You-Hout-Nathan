@@ -19,6 +19,7 @@ if (str_starts_with($url, $base)) {
 
 
 
+
 // Stocker le chemin vers le dossier des contrôleurs.
 $cheminControleurs = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'controllers' . DIRECTORY_SEPARATOR;
 
@@ -28,6 +29,19 @@ if ($url === '/' && $methode === 'GET')
     require_once $cheminControleurs . 'AccueilController.php';
     afficherAccueil();
 }
+else if ($url === '/' && $methode === 'POST') {
+    require_once $cheminControleurs . 'AccueilController.php';
+    traiterCommentaireForm();
+}
+else if ($url === '/commentaire/supprimer' && $methode === 'POST') {
+    require_once $cheminControleurs . 'AccueilController.php';
+    traiterSuppressionCommentaire();
+}
+else if ($url === '/commentaire/modifier' && $methode === 'POST') {
+    require_once $cheminControleurs . 'AccueilController.php';
+    traiterModificationCommentaire();
+}
+
 else if ($url === '/contact' && $methode === 'GET')
 {
     require_once $cheminControleurs . 'ContactController.php';
