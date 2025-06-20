@@ -17,9 +17,6 @@ if (str_starts_with($url, $base)) {
     }
 }
 
-
-
-
 // Stocker le chemin vers le dossier des contrôleurs.
 $cheminControleurs = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'controllers' . DIRECTORY_SEPARATOR;
 

@@ -25,5 +25,6 @@ if (isset($erreurs)) {
     </div>
 </form>
 
-<p><a href="<?= BASE_URL ?>/inscription">Inscrivez-vous</a></p>
-
+<ul>
+<li class="inscrire"><a href="<?= BASE_URL ?>/inscription">Inscrivez-vous</a></li>
+</ul>

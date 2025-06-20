@@ -12,6 +12,7 @@ if (isset($erreurs)) {
 
     <!-- Formulaire de commentaire -->
     <form method="POST" action="/">
+        <div class="form-group">
         <label for="contenu">Votre commentaire :</label><br>
         <textarea name="contenu" id="contenu" required minlength="10" maxlength="3000"><?= htmlspecialchars($args['entreesUtilisateur']['contenu'] ?? '') ?></textarea><br>
         <?php if (!empty($args['erreurs']['contenu'])): ?>
@@ -22,6 +23,7 @@ if (isset($erreurs)) {
     
 
         <button type="submit">Envoyer</button>
+        </div>
     </form>
 <?php else: ?>
     <p>Vous devez <a href="/connexion">vous connecter</a> pour écrire un commentaire.</p>
@@ -37,17 +39,21 @@ if (isset($erreurs)) {
         <?php if (isset($_SESSION['utilisateurId']) && $_SESSION['utilisateurId'] == $commentaire['id_utilisateur']): ?>
             <!-- Formulaire de suppression -->
             <form method="POST" action="/commentaire/supprimer" onsubmit="return confirm('Supprimer ce commentaire ?');">
+                <div class="form-group">
                 <input type="hidden" name="commentaire_id" value="<?= $commentaire['id'] ?>">
                  <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($args['csrf_token']) ?>">
                 <button type="submit">Supprimer</button>
+                </div>
             </form>
 
             <!-- Formulaire de modification -->
             <form method="POST" action="/commentaire/modifier">
+                <div class="form-group">
                 <input type="hidden" name="commentaire_id" value="<?= $commentaire['id'] ?>">
                  <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($args['csrf_token']) ?>">
                 <textarea name="nouveau_contenu" required minlength="10" maxlength="3000"><?= htmlspecialchars($commentaire['contenu']) ?></textarea>
                 <button type="submit">Modifier</button>
+                </div>
             </form>
         <?php endif; ?>
     </div>

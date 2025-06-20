@@ -22,7 +22,7 @@ li{
     background-color: #00ff00;
     border-radius: 3px;
 }
-ul li:last-child {
+ul li:last-child:not(li.inscrire) {
     margin-left: auto;
     margin-right: 0;
   }
@@ -89,6 +89,9 @@ h1{
     padding-bottom: 20px;
     font-weight: bold;
     font-size: 24px;
+}
+p{
+    margin-top: 10px;
 }
 p.commentaire{
     font-weight: bold;
